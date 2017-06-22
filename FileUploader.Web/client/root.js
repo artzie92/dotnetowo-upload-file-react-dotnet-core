@@ -22,13 +22,17 @@ class FileUploader extends Component {
     uploadJustFile(e) {
         e.preventDefault();
         let state = this.state;
-        state.justFileServiceResponse = 'Please wait...';
-        this.setState(state);
 
+        this.setState({
+            ...state,
+            justFileServiceResponse: 'Please wait'
+        });
 
         if (!state.hasOwnProperty('files')) {
-            state.justFileServiceResponse = 'First select a file!';
-            this.setState(state);
+            this.setState({
+                ...state,
+                justFileServiceResponse: 'First select a file!'
+            });
             return;
         }
 
@@ -45,8 +49,10 @@ class FileUploader extends Component {
                 if (!result.data.success) {
                     message = result.data.message;
                 }
-                state.justFileServiceResponse = message;
-                this.setState(state);
+                this.setState({
+                    ...state,
+                    justFileServiceResponse: message
+                });
             })
             .catch((ex) => {
                 console.error(ex);
@@ -56,12 +62,17 @@ class FileUploader extends Component {
     uploadForm(e) {
         e.preventDefault();
         let state = this.state;
-        state.formServiceResponse = 'Please wait...';
-        this.setState(state);
+
+        this.setState({
+            ...state,
+            formServiceResponse: 'Please wait'
+        });
 
         if (!state.hasOwnProperty('files')) {
-            state.formServiceResponse = 'First select a file!';
-            this.setState(state);
+            this.setState({
+                ...state,
+                formServiceResponse: 'First select a file!'
+            });
             return;
         }
 
@@ -84,8 +95,10 @@ class FileUploader extends Component {
                 if (!result.data.success) {
                     message = result.data.message;
                 }
-                state.formServiceResponse = message;
-                this.setState(state);
+                this.setState({
+                    ...state,
+                    formServiceResponse: message
+                });
             })
             .catch((ex) => {
                 console.error(ex);
@@ -95,17 +108,22 @@ class FileUploader extends Component {
     filesOnChange(sender) {
         let files = sender.target.files;
         let state = this.state;
-        state['files'] = files;
-        this.setState(state);
+
+        this.setState({
+            ...state,
+            files: files
+        });
     }
 
     fieldOnChange(sender) {
         let fieldName = sender.target.name;
         let value = sender.target.value;
-
         let state = this.state;
-        state.fields[fieldName] = value;
-        this.setState(state);
+
+        this.setState({
+            ...state,
+            fields: {...state.fields, [fieldName]: value}
+        });
     }
 
     render() {
